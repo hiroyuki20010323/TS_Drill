@@ -194,6 +194,10 @@
     };
 }
 {
+    const Name = {
+        name: "taro",
+        age: 23,
+    };
 }
 {
 }

@@ -279,6 +279,11 @@
   };
 
   type NewName = Pick<Person, "name" | "age">;
+
+  const Name: NewName = {
+    name: "taro",
+    age: 23,
+  };
 }
 {
   type Person = {

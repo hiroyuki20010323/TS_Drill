@@ -9,6 +9,23 @@ const addOrConcat = (a, b, c) => {
 };
 const result = addOrConcat(1, 2, "concat");
 console.log(result);
-// 型推論で推論されている型とは別の型を定義したいときに使用する。
-// ＊別の定義を推論するなという議論もあるよう
-// htmlはそれぞれのタグに固有の型があるよう。divタグの場合、HTMLDivElementなど
+// 上記の型エイリアスはどちらも引数と戻り値のみを定義したもの、
+// 型Funcは、第一引数が、funcという名前の関数を受け取るということ、戻り値はない。
+const func1 = (a, b) => { };
+// 通常のアロー関数の型定義は上記のようになるが、型エイリアスにより、引数のみを定義する場合は以下のようなる
+// ↓typeを使用した書き方。
+const hello = (name) => `Hello, ${name}`;
+console.log(hello("World")); // Hello, World
+const obj = {
+    id: 1,
+    name: "hiro",
+};
+const post = {
+    id: 1,
+    title: "First Post",
+    content: "hello",
+    comments: [
+        { userId: 1, comments: "Hi!" },
+        { userId: 2, comments: "Hello!" },
+    ],
+};
