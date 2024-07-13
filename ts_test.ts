@@ -80,4 +80,21 @@ const user = { id: 3, name: "bob" } as const;
 type UserValue = keyof typeof user;
 // keyof~ はオブジェクト型のすべてのプロパティをユニオン型に直す。
 // typeof~ は~の部分にはオブジェクト名が入るが、そのオブジェクトのプロパティを取得する。
+// javaScriptにおけるtypeofは、変数の型を判定するために使用される。stringやobjectなど
+typeof Literal.message === "string";
 // as constをしようすることで、UserValueは3と'bob'のリテラル型しか許可されなくなった。
+
+// isは型ガードの役割として機能する。
+{
+  type A = {
+    name: string;
+  };
+
+  type B = {
+    age: number;
+  };
+
+  const isProfile = (arg: A | B): arg is A => {
+    return (arg as A).name! == undefined;
+  };
+}
