@@ -84,7 +84,9 @@ type UserValue = keyof typeof user;
 typeof Literal.message === "string";
 // as constをしようすることで、UserValueは3と'bob'のリテラル型しか許可されなくなった。
 
-// isは型ガードの役割として機能する。
+// isは型ガードの役割として機能する。その関数の引数として受け取る値が、どの型エイリアスかを明示的に決定する機能をもつ
+// 主に、ユニオン型で定義されている場合、どの型が入っているのかというのを明示的に指定する時に使用する。
+//
 {
   type A = {
     name: string;
@@ -96,5 +98,26 @@ typeof Literal.message === "string";
 
   const isProfile = (arg: A | B): arg is A => {
     return (arg as A).name! == undefined;
+  };
+
+  // const getProfile = (person: A | B) => {
+  //   if (!!person.age) {
+  //     console.log(person.age);
+  //   } else {
+  //     console.log(person.name);
+  //   }
+  // };
+  // !! は値の有無を真偽値で返す
+  // 上記式は、isProfileという型を明示的にしていた定数を使用していないので、エラーがでる。
+  // どちらの型エイリアスを参照しているのかわからない。
+
+  // 下は、isで型を明示的に指定しているのでエラーが出ない
+
+  const isPerson2 = (person: A | B) => {
+    if (isProfile(person)) {
+      console.log(person.name);
+    } else {
+      console.log(person.age);
+    }
   };
 }
