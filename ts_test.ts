@@ -121,3 +121,29 @@ typeof Literal.message === "string";
     }
   };
 }
+
+{
+  type Red = {
+    color: "red";
+  };
+
+  type Blue = {
+    color2: "blue";
+  };
+
+  // const Color = (arg: Red | Blue) => {
+  //   if (color2 !== undefined) {
+  //     console.log(arg.color2);
+  //   } else {
+  //     console.log(arg.color);
+  //   }
+  // };
+
+  const Color = (arg: Red | Blue) => {
+    if ("color2" in arg) {
+      console.log(arg.color2);
+    } else {
+      console.log(arg.color);
+    }
+  };
+}
