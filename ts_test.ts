@@ -107,6 +107,7 @@ typeof Literal.message === "string";
   //     console.log(person.name);
   //   }
   // };
+
   // !! は値の有無を真偽値で返す
   // 上記式は、isProfileという型を明示的にしていた定数を使用していないので、エラーがでる。
   // どちらの型エイリアスを参照しているのかわからない。
@@ -120,4 +121,12 @@ typeof Literal.message === "string";
       console.log(person.age);
     }
   };
+
+  // const getProfile = (person: A | B) => {
+  //   if (!!person.age ) {
+  //     console.log(person.age);
+  //   } else {
+  //     console.log(person.name);
+  //   }
+  // };
 }
