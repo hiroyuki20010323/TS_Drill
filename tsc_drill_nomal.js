@@ -281,3 +281,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     };
 }
 // 113~116まではまだやっていない。
+{
+    const data1 = {
+        id: 1,
+        message: "hoge",
+    };
+    const data2 = {
+        id: 2,
+        message: ["foo", "bar"],
+    };
+}
+{
+    // 115
+    function func(x) {
+        return x;
+    }
+    const str = func("a");
+    const number = func(1);
+}
+{
+    const getAge = (person) => {
+        return person.age;
+    };
+    const age = getAge({ name: "taro", age: 25 });
+}

@@ -97,7 +97,7 @@ typeof Literal.message === "string";
   };
 
   const isProfile = (arg: A | B): arg is A => {
-    return (arg as A).name! == undefined;
+    return (arg as A).name !== undefined;
   };
 
   // const getProfile = (person: A | B) => {
@@ -112,7 +112,7 @@ typeof Literal.message === "string";
   // 上記式は、isProfileという型を明示的にしていた定数を使用していないので、エラーがでる。
   // どちらの型エイリアスを参照しているのかわからない。
 
-  // 下は、isで型を明示的に指定しているのでエラーが出ない
+  // 下は、isProfileでperosnがどの型であるかをを明示的に指定しているのでエラーが出ない
 
   const isPerson2 = (person: A | B) => {
     if (isProfile(person)) {
@@ -163,3 +163,75 @@ typeof Literal.message === "string";
 }
 
 // * isとinの違いは、isは、関数の返り値で型を特定しているのに対して、inは、条件分岐内で型を特定している。
+
+{
+  // Record<Keys,Type>Keysにはプロパティのキー、typeにはプロパティの値が入る。
+  // オブジェクトの型を新たに作る。ユーティリティ型と呼ばれる。
+
+  type Person = Record<"firstName" | "lastName" | "address", string>;
+
+  const Profile: Person = {
+    firstName: "Ymada",
+    lastName: "Tarou",
+    address: "Tokyo",
+  };
+
+  // type Person = Record<string,number>
+  // 上記のような書き方もある。これはプロパティキーの値を明記せず、単にstringのキーと、numberの値が入ることが示されている。
+}
+
+{
+  // index型
+
+  let telephoneNumber: {
+    [TEL: string]: string;
+  };
+  // TELというキーがstring型で、キーの値もstring型であるという意味
+  // 電話番号をnumber型として先頭を0から始めると8進数と認識されエラーが出るからstringとして定義する。
+  telephoneNumber = { TEL: "010-1111-1111" };
+}
+
+{
+  // ジェネリック型
+  // 以下は基本的な型であり、オブジェクトのプロパティは同じだが、代入されるプリミティブ値が異なる場合
+  // 毎度その型に応じたオブジェクトを作成するのが困難な場合、Tを使用してどの型でも受け入れるようにしている
+  // 代入される型が決定されるのは、その型エイリアスを使用して実際にオブジェクトを作成するときに指定する。
+  type Fruit<T> = {
+    name: string;
+    color: string;
+    origin: T;
+  };
+
+  const fruit1: Fruit<string> = {
+    name: "Pineapple",
+    color: "yellow",
+    origin: "South America",
+  };
+  const fruit2: Fruit<undefined> = {
+    name: "Olive",
+    color: "green",
+    origin: undefined,
+  };
+}
+{
+  // 応用的なジェネリック型になるが、Tには、オブジェクトのエイリアス、Kはオブジェクトのプロパティが入る
+  type Person = {
+    name: string;
+    age: number;
+    homeTown: string;
+  };
+  function getPerosn<T, K extends keyof T>(obj: T, key: K): T[K] {
+    return obj[key];
+  }
+
+  const person: Person = {
+    name: "Yamada Tarou",
+    age: 23,
+    homeTown: "Tokyo",
+  };
+
+  const name = getPerosn(person, "name");
+  console.log(name);
+}
+
+// *アロー関数を使用する際、<T>を使用すると、JSXとして認識されエラ―が発生するので、functionを使用する。

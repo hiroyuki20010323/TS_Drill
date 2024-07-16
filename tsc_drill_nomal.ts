@@ -406,3 +406,40 @@
   };
 }
 // 113~116まではまだやっていない。
+{
+  // 113
+  type Data<T> = {
+    id: number;
+    message: T;
+  };
+
+  const data1: Data<string> = {
+    id: 1,
+    message: "hoge",
+  };
+  const data2: Data<string[]> = {
+    id: 2,
+    message: ["foo", "bar"],
+  };
+}
+
+{
+  // 115
+  function func<T>(x: T): T {
+    return x;
+  }
+  const str = func<string>("a");
+  const number = func<number>(1);
+}
+{
+  // 116
+  type Person = {
+    name: string;
+    age: number;
+  };
+
+  const getAge = <T extends Person>(person: T): number => {
+    return person.age;
+  };
+  const age = getAge<Person>({ name: "taro", age: 25 });
+}
