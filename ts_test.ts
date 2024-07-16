@@ -130,3 +130,36 @@ typeof Literal.message === "string";
   //   }
   // };
 }
+
+// 以下はinで型ガードするときの構文
+{
+  type Red = {
+    color: "red";
+  };
+
+  type Blue = {
+    color2: "blue";
+  };
+
+  // const Color = (arg: Red | Blue) => {
+  //   if (color2 !== undefined) {
+  //     console.log(arg.color2);
+  //   } else {
+  //     console.log(arg.color);
+  //   }
+  // };
+
+  // 上記の場合、argに指定されているユニオン型は、どちらのエイリアスが入るか不明なので、エラーが発生する。
+
+  // 下記は。条件分岐内でinを使用してプロパティを指定しているため、どの型エイリアスのプロパティが入ってくるのかわかる。
+
+  const Color = (arg: Red | Blue) => {
+    if ("color2" in arg) {
+      console.log(arg.color2);
+    } else {
+      console.log(arg.color);
+    }
+  };
+}
+
+// * isとinの違いは、isは、関数の返り値で型を特定しているのに対して、inは、条件分岐内で型を特定している。
